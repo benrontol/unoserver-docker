@@ -21,9 +21,10 @@ RUN apk add --no-cache \
     bash curl \
     py3-pip \
     libreoffice \
-    supervisor
+    supervisor \
+    fontconfig
 
-# fonts - https://wiki.alpinelinux.org/wiki/Fonts
+# Install additional fonts
 RUN apk add --no-cache \
     font-noto font-noto-cjk font-noto-extra \
     terminus-font \
@@ -33,9 +34,12 @@ RUN apk add --no-cache \
     ttf-hack \
     ttf-inconsolata \
     ttf-liberation \
-    ttf-mononoki  \
-    ttf-opensans   \
-    fontconfig && \
+    ttf-mononoki \
+    ttf-opensans
+
+# Install microsoft fonts, e.g. Arial
+RUN apk --no-cache add msttcorefonts-installer fontconfig && \
+    update-ms-fonts && \
     fc-cache -f
 
 RUN rm -rf /var/cache/apk/* /tmp/*
